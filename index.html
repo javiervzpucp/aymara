@@ -24,7 +24,7 @@
     <div id="mynetwork"></div>
     <script>
         // Cargar datos del grafo desde el JSON
-        fetch('graph_data.json') // Cambia esto si el JSON está en otro directorio
+        fetch('./graph_data.json') // Cambia esto si el JSON está en otro directorio
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
