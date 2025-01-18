@@ -25,7 +25,7 @@
     <p>This graph visualizes the connections between nodes dynamically loaded from a JSON file.</p>
     <div id="mynetwork"></div>
     <script>
-        // Cargar datos del grafo desde el JSON
+        // Ruta al archivo JSON
         fetch('graph_data.json')
             .then(response => {
                 if (!response.ok) {
@@ -34,15 +34,19 @@
                 return response.json();
             })
             .then(data => {
-                // Crear el grafo
                 const container = document.getElementById('mynetwork');
                 const options = {
+                    layout: {
+                        improvedLayout: false // Desactiva layout mejorado para mejor rendimiento
+                    },
                     nodes: {
                         shape: 'dot',
                         font: { color: 'white' }
                     },
                     edges: { color: 'silver' },
-                    physics: { enabled: true }
+                    physics: {
+                        enabled: true
+                    }
                 };
 
                 const networkData = {
@@ -59,4 +63,5 @@
     </script>
 </body>
 </html>
+
 
