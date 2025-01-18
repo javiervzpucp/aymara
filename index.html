@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Knowledge Graph</title>
-    <meta charset="utf-8">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous"></script>
+    <!-- Cargar Vis.js desde un CDN confiable -->
+    <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,31 +26,25 @@
     <div id="mynetwork"></div>
     <script>
         // Cargar datos del grafo desde el JSON
-        fetch('./graph_data.json') // Cambia esto si el JSON está en otro directorio
+        fetch('graph_data.json')
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`Error al cargar el JSON: ${response.status}`);
                 }
                 return response.json();
             })
             .then(data => {
+                // Crear el grafo
                 const container = document.getElementById('mynetwork');
                 const options = {
                     nodes: {
                         shape: 'dot',
-                        font: {
-                            color: 'white'
-                        }
+                        font: { color: 'white' }
                     },
-                    edges: {
-                        color: 'silver'
-                    },
-                    physics: {
-                        enabled: true
-                    }
+                    edges: { color: 'silver' },
+                    physics: { enabled: true }
                 };
 
-                // Crear el grafo con los datos cargados
                 const networkData = {
                     nodes: new vis.DataSet(data.nodes),
                     edges: new vis.DataSet(data.edges)
@@ -57,7 +53,7 @@
                 const network = new vis.Network(container, networkData, options);
             })
             .catch(error => {
-                console.error('Error al cargar el JSON:', error);
+                console.error(error);
                 alert('No se pudo cargar el grafo. Revisa la consola para más detalles.');
             });
     </script>
